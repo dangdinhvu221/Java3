@@ -5,7 +5,7 @@
  */
 package Service;
 
-import Class.GRADE;
+import modal.GRADE;
 import DatabaseHelper.DatabaseHalper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,19 +40,18 @@ public class GRADEDAO {
         return list;
     }
 
-    public GRADE FindID(String CodeId) {
+    public GRADE FindID(String CodeId) throws Exception {
         String sql = "SELECT * FROM dbo.GRADE WHERE [CodeStudent] = ?";
 
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, CodeId);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                GRADE gr = createGRADE(rs);
-                return gr;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Connection conn = DatabaseHalper.openConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, CodeId);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            GRADE gr = createGRADE(rs);
+            return gr;
         }
+
         return null;
     }
 
@@ -67,55 +66,50 @@ public class GRADEDAO {
         return gr;
     }
 
-    public GRADE Insert(GRADE grade) {
+    public GRADE Insert(GRADE grade) throws Exception {
         String sql = "INSERT dbo.GRADE( CodeStudent, Fullname , English, Informationtics, GDTC, DTB)"
                 + "VALUES(?,?,?,?,?,?)";
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, grade.getCodeStudent());
-            pstmt.setString(2, grade.getFullName());
-            pstmt.setFloat(3, grade.getEnglish());
-            pstmt.setFloat(4, grade.getInformationtics());
-            pstmt.setFloat(5, grade.getGDTC());
-            pstmt.setFloat(6, grade.getAvg());
-            list.add(grade);
-            int kq = pstmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Connection conn = DatabaseHalper.openConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, grade.getCodeStudent());
+        pstmt.setString(2, grade.getFullName());
+        pstmt.setFloat(3, grade.getEnglish());
+        pstmt.setFloat(4, grade.getInformationtics());
+        pstmt.setFloat(5, grade.getGDTC());
+        pstmt.setFloat(6, grade.getAvg());
+        list.add(grade);
+        int kq = pstmt.executeUpdate();
+        conn.close();
+
         return grade;
     }
 
-    public int Update(GRADE grade) {
+    public int Update(GRADE grade) throws Exception {
         String sql = "UPDATE dbo.GRADE SET [English] = ?, [Informationtics] = ?, [GDTC] = ?, [DTB] = ? "
                 + "WHERE [CodeStudent] = ?";
 
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = DatabaseHalper.openConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(5, grade.getCodeStudent());
+        pstmt.setFloat(1, grade.getEnglish());
+        pstmt.setFloat(2, grade.getInformationtics());
+        pstmt.setFloat(3, grade.getGDTC());
+        pstmt.setFloat(4, grade.getAvg());
+        int kq = pstmt.executeUpdate();
+        conn.close();
 
-            pstmt.setString(5, grade.getCodeStudent());
-            pstmt.setFloat(1, grade.getEnglish());
-            pstmt.setFloat(2, grade.getInformationtics());
-            pstmt.setFloat(3, grade.getGDTC());
-            pstmt.setFloat(4, grade.getAvg());
-
-            int kq = pstmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return 0;
     }
 
-    public int Delete(String codeID) {
+    public int Delete(String codeID) throws Exception {
         String sql = "DELETE FROM dbo.GRADE WHERE [CodeStudent] = ?";
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
+//        String sql = "UPDATE dbo.GRADE SET trang_thai = ? WHERE [CodeStudent] = ?";
+        Connection conn = DatabaseHalper.openConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, codeID);
+        int kq = pstmt.executeUpdate();
+        conn.close();
 
-            pstmt.setString(1, codeID);
-            int kq = pstmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return 0;
     }
 }

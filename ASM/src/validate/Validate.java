@@ -5,6 +5,8 @@
  */
 package validate;
 
+import modal.GRADE;
+import modal.STUDENT;
 import Service.STUDENTDAO;
 import Service.GRADEDAO;
 import java.awt.Color;
@@ -14,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import Class.*;
 
 /**
  *
@@ -69,7 +70,7 @@ public class Validate {
         try {
             double poin = Double.parseDouble(field.getText());
             if (poin > 10 || poin < 0) {
-                sb.append("Điểm không hợp lệ");
+                sb.append("Điểm không hợp lệ!!!\n");
                 field.setBorder(new LineBorder(Color.RED));
                 check = false;
             }
@@ -86,10 +87,10 @@ public class Validate {
 
     public static boolean checkEmail(JTextField field, StringBuilder sb) {
         boolean flag = true;
-        if (!checkEmty(field, sb, "Email Chưa Nhập\n")) {
+        if (!checkEmty(field, sb, "Email Chưa Nhập!!")) {
             return false;
         }
-        Pattern pattern = Pattern.compile("\\w+@\\w+(\\.\\w+){1,2}");
+        Pattern pattern = Pattern.compile(RegExType.regexEmail());
         Matcher matcher = pattern.matcher(field.getText());
         if (!matcher.find()) {
             sb.append("Email không hợp lệ không hợp lệ\n");
@@ -103,13 +104,13 @@ public class Validate {
     }
 
     public static boolean checkPhoneNumber(JTextField field, StringBuilder sb) {
-        Pattern pattern = Pattern.compile("^0\\d{9,10}");
+        Pattern pattern = Pattern.compile(RegExType.regexPhoneNumber());
         Matcher matcher = pattern.matcher(field.getText());
         boolean flag = true;
         if (!checkEmty(field, sb, "Số điện thoại Chưa Nhập\n")) {
             return false;
         } else if (!matcher.find()) {
-            sb.append("Số điện thoại nhập không hợp lệ!!!");
+            sb.append("Số điện thoại nhập không hợp lệ!!!\n");
             field.setBorder(new LineBorder(Color.RED));
             flag = false;
         }
@@ -119,28 +120,24 @@ public class Validate {
         return flag;
     }
 
-    public static boolean checkTrungGrade(String codeID) {
-        try {
-            GRADEDAO gradedao = new GRADEDAO();
-            GRADE grade = gradedao.FindID(codeID);
+    public static boolean checkTrungGrade(String codeID) throws Exception {
+        GRADEDAO gradedao = new GRADEDAO();
+        GRADE grade = gradedao.FindID(codeID);
+        if (grade != null) {
             if (grade.getCodeStudent().equalsIgnoreCase(codeID)) {
                 return true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return false;
     }
 
-    public static boolean checkTrungStudent(String codeID) {
-        try {
-            STUDENTDAO studentdao = new STUDENTDAO();
-            STUDENT student = studentdao.FindByID(codeID);
+    public static boolean checkTrungStudent(String codeID) throws Exception {
+        STUDENTDAO studentdao = new STUDENTDAO();
+        STUDENT student = studentdao.FindByID(codeID);
+        if (student != null) {
             if (student.getCodeStuden().equalsIgnoreCase(codeID)) {
                 return true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return false;
     }

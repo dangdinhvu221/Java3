@@ -5,7 +5,7 @@
  */
 package Service;
 
-import Class.STUDENT;
+import modal.STUDENT;
 import DatabaseHelper.DatabaseHalper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import messageHelper.MessageDialogHelper;
+
 /**
  *
  * @author dangd
@@ -23,8 +25,7 @@ public class STUDENTDAO {
 
     public List<STUDENT> FindByAll() {
         String sql = "SELECT * FROM STUDENT";
-        try ( Connection conn = DatabaseHalper.openConnection(); 
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
             ResultSet rs = pstmt.executeQuery();
             list.clear();
             while (rs.next()) {
@@ -37,7 +38,7 @@ public class STUDENTDAO {
         }
         return list;
     }
-    
+
     public STUDENT FindByID(String CodeId) {
         String sql = "SELECT * FROM STUDENT WHERE [CodeStudent] = ?";
         try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -53,7 +54,7 @@ public class STUDENTDAO {
         }
         return null;
     }
-    
+
     private STUDENT createStudent(ResultSet rs) throws SQLException {
         STUDENT student = new STUDENT();
         student.setCodeStuden(rs.getString("CodeStudent"));
@@ -66,8 +67,7 @@ public class STUDENTDAO {
         return student;
     }
 
-
-    public STUDENT Insert(STUDENT student) {
+    public STUDENT Insert(STUDENT student) throws Exception{
         String sql = "INSERT INTO STUDENT(CodeStudent, Fullname, Email, PhoneNumber, Gender, Address, Images)"
                 + "VALUES (?,?,?,?,?,?,?)";
         try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -88,7 +88,7 @@ public class STUDENTDAO {
         return student;
     }
 
-    public int Update(STUDENT student) {
+    public int Update(STUDENT student) throws Exception{
         String sql = "UPDATE dbo.STUDENT SET [Fullname] = ?, [Email] = ?, [PhoneNumber] = ?, [Gender] = ?, [Address] = ?, [Images] = ? "
                 + "WHERE [CodeStudent] = ?";
 
@@ -108,16 +108,15 @@ public class STUDENTDAO {
         return 0;
     }
 
-    public int Delete(String codeID) {
-        String sql = "DELETE FROM dbo.STUDENT WHERE [CodeStudent] = ?";
+    public int Delete(String codeID) throws Exception {
+        String sql = "EXEC dbo.Delete_SV_GR @codeStudent = ?";
 
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setString(1, codeID);
-            int kq = pstmt.executeUpdate();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Connection conn = DatabaseHalper.openConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, codeID);
+        int kq = pstmt.executeUpdate();
+        conn.close();
+
         return 0;
     }
 }

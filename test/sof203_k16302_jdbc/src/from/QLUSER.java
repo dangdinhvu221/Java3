@@ -52,9 +52,9 @@ public class QLUSER extends javax.swing.JFrame {
         });
     }
 
-    public void filltable(int location) {
+    public void filltable(int index) {
         this.tblModel.setRowCount(0);
-        this.listMH = this.monHocDao.getAll(location);
+        this.listMH = this.monHocDao.getAll(index);
         this.listMH.forEach(mh -> {
             this.tblModel.addRow(new Object[]{mh.getId(), mh.getMaMonHoc(), mh.getTenMonHoc(),
                 mh.getNgayTao(), mh.getChuyenNganhID()});

@@ -25,6 +25,7 @@ public class managmentUser extends javax.swing.JFrame {
     private List<MonHoc> listMH;
     private QLChuyenNganhService chuyenNganhDao;
     private List<ChuyenNganh> listCN;
+
     /**
      * Creates new form managmentUser
      */
@@ -98,28 +99,23 @@ public class managmentUser extends javax.swing.JFrame {
         }
         mh.setNgayTao(ngayTaoo);
         mh.setChuyenNganhID(cboChuyenNganh.getSelectedIndex());
-        if(monHocDao.update(mh) == 0){
+        if (monHocDao.update(mh) == 0) {
             JOptionPane.showMessageDialog(this, "okoko");
             return;
         }
     }
 
-//    public void showw(int index) {
-//        MonHoc mh = listMH.get(index);
-//        txtMaMh.setText(mh.getMaMonHoc());
-//        txtTenMH.setText(mh.getTenMonHoc());
-//        txtNgayTao.setText(mh.getNgayTao() + "");
-//        cboChuyenNganh.setSelectedItem(mh.getChuyenNganhID());
-//    }
-//
-//    public void mouseClick() {
-//        try {
-//            index = this.tblShow.getSelectedRow();
-//            showw(index);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void mouseClick() {
+        int index = tblShow.getSelectedRow();
+        String row1 = tblShow.getValueAt(index, 0).toString();
+        String row2 = tblShow.getValueAt(index, 1).toString();
+        String row3 = tblShow.getValueAt(index, 2).toString();
+
+        txtMaMh.setText(row1);
+        txtTenMH.setText(row2);
+        txtNgayTao.setText(row3);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -335,7 +331,7 @@ public class managmentUser extends javax.swing.JFrame {
 
     private void tblShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblShowMouseClicked
         // TODO add your handling code here:
-//        mouseClick();
+        mouseClick();
     }//GEN-LAST:event_tblShowMouseClicked
 
     /**

@@ -23,7 +23,8 @@ public class QLMHService {
     public List<MonHoc> getAll(int chuyenNganhId) {
         List<MonHoc> list = new ArrayList<>();
         String sql = "select * from mon_hoc WHERE [chuyen_nganh_id] = ?";
-        try ( Connection conn = DatabaseHelper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try ( Connection conn = DatabaseHelper.openConnection();  
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, chuyenNganhId);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {

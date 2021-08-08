@@ -5,7 +5,7 @@
  */
 package Service;
 
-import Class.USER;
+import modal.USER;
 import DatabaseHelper.DatabaseHalper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

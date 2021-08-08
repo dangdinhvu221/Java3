@@ -39,7 +39,8 @@ CREATE TABLE GRADE
 	CodeStudent VARCHAR(7) NULL,
 	English FLOAT NULL,
 	Informationtics FLOAT NULL,
-	GDTC FLOAT NULL
+	GDTC FLOAT NULL,
+	DTB FLOAT NULL
 	CONSTRAINT FK_GRADE_STUDENT FOREIGN KEY(CodeStudent) REFERENCES dbo.Student
 )
 GO
@@ -47,15 +48,15 @@ GO
 
 INSERT dbo.USERS
 		VALUES
-		(   'admin', -- Username - varchar(50)
-			'admin', -- Password - varchar(50)
-			N'true' -- Role - nvarchar(50)
-			),
-			(   'vuddph14036', -- Username - varchar(50)
+		(   'admingv', -- Username - varchar(50)
 			'123', -- Password - varchar(50)
-			N'true' -- Role - nvarchar(50)
+			N'Giáo viên' -- Role - nvarchar(50)
 			),
-			(   'vu123', -- Username - varchar(50)
+			(   'admindt', -- Username - varchar(50)
+			'123', -- Password - varchar(50)
+			N'Đào tạo' -- Role - nvarchar(50)
+			),
+			(   'admin', -- Username - varchar(50)
 			'123', -- Password - varchar(50)
 			N'true' -- Role - nvarchar(50)
 			)
@@ -63,10 +64,25 @@ SELECT*FROM dbo.USERS
 SELECT*FROM dbo.STUDENT
 SELECT*FROM dbo.GRADE
 
-select Username, Password from dbo.USERS WHERE Username='admin' AND Password ='admin'
-UPDATE dbo.STUDENT
-SET Fullname = N'Vũ', Email = '@gmail.com', PhoneNumber = '0123', Gender = N'nữ', Address = N'HN', Images = null
-WHERE CodeStudent = 'a';
+---
+IF OBJECT_ID('Delete_SV_GR') IS NOT NULL
+	DROP PROC Delete_SV_GR
+GO
+CREATE PROC Delete_SV_GR
+	@codeStudent VARCHAR(7)
+AS	
+	BEGIN TRY
+	BEGIN TRAN
+		DELETE FROM dbo.GRADE 
+			WHERE CodeStudent IN (SELECT CodeStudent FROM dbo.GRADE WHERE CodeStudent = @codeStudent)
+		DELETE FROM dbo.STUDENT 
+			WHERE CodeStudent IN (SELECT CodeStudent FROM dbo.STUDENT WHERE CodeStudent = @codeStudent)
+	COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+	END CATCH
+--- gọi
+EXEC dbo.Delete_SV_GR @codeStudent = 'ph14036'
 
-SELECT Fullname FROM dbo.STUDENT
-WHERE Fullname LIKE N'đặng đình vũ'
+-----

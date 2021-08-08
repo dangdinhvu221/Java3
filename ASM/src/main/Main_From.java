@@ -5,8 +5,12 @@
  */
 package main;
 
-import from.*;
-import Class.*;
+import view.NoiDungDialog;
+import view.GRADEManagmentPanel;
+import view.StudenManagmentPanel;
+import view.LoginDialog;
+import view.AboutDialog;
+import modal.ShearchData;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,7 +34,6 @@ public class Main_From extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         // mở from hiển thị full màn hình
         this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-
     }
 
     // Tabb Student
@@ -40,7 +43,7 @@ public class Main_From extends javax.swing.JFrame {
                 this.menuST = new StudenManagmentPanel();
                 ImageIcon icon = new ImageIcon(getClass()
                         .getResource("/image/10207-man-student-light-skin-tone-icon-32.png"));
-                this.tplMainBoard.addTab("Quản lý sinh viên", icon, this.menuST, "Quản lý sinh viên");
+                this.tplMainBoard.addTab("Quản lý sinh viên", icon, this.menuST);
             }
             this.tplMainBoard.setSelectedComponent(this.menuST);
         } catch (Exception e) {
@@ -56,7 +59,7 @@ public class Main_From extends javax.swing.JFrame {
                 this.menuGRADE = new GRADEManagmentPanel();
                 ImageIcon icon = new ImageIcon(getClass()
                         .getResource("/image/gpa-icon-32.png"));
-                this.tplMainBoard.addTab("Quản lý điểm sinh viên", icon, this.menuGRADE, "Quản lý điểm sinh viên");
+                this.tplMainBoard.addTab("Quản lý điểm sinh viên", icon, this.menuGRADE);
             }
             this.tplMainBoard.setSelectedComponent(this.menuGRADE);
         } catch (Exception e) {
@@ -96,6 +99,7 @@ public class Main_From extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         menu_Exit = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
         menuStudent = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -106,15 +110,19 @@ public class Main_From extends javax.swing.JFrame {
         menuGT = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 204, 153));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
+        jToolBar1.setBackground(new java.awt.Color(0, 204, 153));
+        jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
+        btnLogout.setBackground(new java.awt.Color(0, 204, 153));
         btnLogout.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logout-icon-48.png"))); // NOI18N
         btnLogout.setText("   ĐĂNG XUẤT  ");
@@ -129,6 +137,7 @@ public class Main_From extends javax.swing.JFrame {
         jToolBar1.add(btnLogout);
         jToolBar1.add(jSeparator4);
 
+        btnQLSV.setBackground(new java.awt.Color(0, 204, 153));
         btnQLSV.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnQLSV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/10207-man-student-light-skin-tone-icon-32.png"))); // NOI18N
         btnQLSV.setText("QUẢN LÝ SINH VIÊN");
@@ -142,6 +151,7 @@ public class Main_From extends javax.swing.JFrame {
         });
         jToolBar1.add(btnQLSV);
 
+        btnQLDSV.setBackground(new java.awt.Color(0, 204, 153));
         btnQLDSV.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnQLDSV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/gpa-icon-32.png"))); // NOI18N
         btnQLDSV.setText("QUẢN LÝ ĐIỂM");
@@ -156,6 +166,7 @@ public class Main_From extends javax.swing.JFrame {
         jToolBar1.add(btnQLDSV);
         jToolBar1.add(jSeparator6);
 
+        btnAbout.setBackground(new java.awt.Color(0, 204, 153));
         btnAbout.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Actions-help-about-icon-48.png"))); // NOI18N
         btnAbout.setText("GIỚI THIỆU");
@@ -169,6 +180,12 @@ public class Main_From extends javax.swing.JFrame {
         });
         jToolBar1.add(btnAbout);
 
+        tplMainBoard.setBackground(new java.awt.Color(255, 153, 0));
+        tplMainBoard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0), 2));
+        tplMainBoard.setForeground(new java.awt.Color(255, 102, 0));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 204, 153), new java.awt.Color(0, 204, 153)));
+
         lblLogin.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -179,12 +196,11 @@ public class Main_From extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                    .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,9 +211,13 @@ public class Main_From extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 153), 2));
+
+        jMenu1.setBackground(new java.awt.Color(255, 153, 51));
         jMenu1.setText("Hệ Thống");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setBackground(new java.awt.Color(255, 153, 51));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logout-icon-16.png"))); // NOI18N
         jMenuItem1.setText("Đăng Xuất");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +229,7 @@ public class Main_From extends javax.swing.JFrame {
         jMenu1.add(jSeparator3);
 
         menu_Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_Exit.setBackground(new java.awt.Color(255, 153, 51));
         menu_Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Button-Close-icon-16.png"))); // NOI18N
         menu_Exit.setText("Thoát");
         menu_Exit.addActionListener(new java.awt.event.ActionListener() {
@@ -217,9 +238,12 @@ public class Main_From extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menu_Exit);
+        jMenu1.add(jSeparator5);
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBackground(new java.awt.Color(255, 153, 51));
+        jMenu2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
         jMenu2.setText("Quản Lý");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,6 +274,8 @@ public class Main_From extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setBackground(new java.awt.Color(0, 204, 153));
+        jMenu3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
         jMenu3.setText("Trợ Giúp");
         jMenu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,6 +283,7 @@ public class Main_From extends javax.swing.JFrame {
             }
         });
 
+        menuND.setBackground(new java.awt.Color(255, 102, 0));
         menuND.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Actions-help-about-icon-16.png"))); // NOI18N
         menuND.setText("Nội Dung");
         menuND.addActionListener(new java.awt.event.ActionListener() {
@@ -267,6 +294,7 @@ public class Main_From extends javax.swing.JFrame {
         jMenu3.add(menuND);
         jMenu3.add(jSeparator1);
 
+        menuGT.setBackground(new java.awt.Color(255, 102, 0));
         menuGT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Help-icon-16.png"))); // NOI18N
         menuGT.setText("Giới Thiệu");
         jMenu3.add(menuGT);
@@ -281,13 +309,13 @@ public class Main_From extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(tplMainBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -297,7 +325,7 @@ public class Main_From extends javax.swing.JFrame {
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tplMainBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                .addComponent(tplMainBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -306,7 +334,7 @@ public class Main_From extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        this.btnLogoutActionPerformed(evt);
+        this.logOut();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menuGPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGPAActionPerformed
@@ -358,28 +386,38 @@ public class Main_From extends javax.swing.JFrame {
     }//GEN-LAST:event_menuNDActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-//        this.logOut();
+        this.logOut();
     }//GEN-LAST:event_formWindowOpened
     public void logOut() {
         LoginDialog logout = new LoginDialog(this, true);
         logout.setVisible(true);
         this.processLogin();
     }
+
     // lấy thông tin từ người đăng nhập
     private void processLogin() {
         this.lblLogin.setText(ShearchData.nguoiDangNhap.getUsername());
         this.lblRole.setText(ShearchData.nguoiDangNhap.getRole());
         this.tplMainBoard.removeAll();
-        if (ShearchData.nguoiDangNhap.getRole().equals("Giáo viên")) {
-            this.menuStudent.setEnabled(true);
-            this.menuGPA.setEnabled(false);
-            this.btnQLSV.setEnabled(true);
-            this.btnQLDSV.setEnabled(false);
-        } else if (ShearchData.nguoiDangNhap.getRole().equals("Đào tạo")) {
-            this.menuStudent.setEnabled(false);
-            this.menuGPA.setEnabled(true);
-            this.btnQLSV.setEnabled(false);
-            this.btnQLDSV.setEnabled(true);
+        switch (ShearchData.nguoiDangNhap.getRole()) {
+            case "Giáo viên" -> {
+                this.menuStudent.setEnabled(true);
+                this.menuGPA.setEnabled(false);
+                this.btnQLSV.setEnabled(true);
+                this.btnQLDSV.setEnabled(false);
+            }
+            case "Đào tạo" -> {
+                this.menuStudent.setEnabled(false);
+                this.menuGPA.setEnabled(true);
+                this.btnQLSV.setEnabled(false);
+                this.btnQLDSV.setEnabled(true);
+            }
+            default -> {
+                this.menuStudent.setEnabled(true);
+                this.menuGPA.setEnabled(true);
+                this.btnQLSV.setEnabled(true);
+                this.btnQLDSV.setEnabled(true);
+            }
         }
     }
 
@@ -434,6 +472,7 @@ public class Main_From extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblLogin;
