@@ -33,7 +33,8 @@ public class Main_From extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         // mở from hiển thị full màn hình
-        this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+//        this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        setResizable(false);
     }
 
     // Tabb Student
@@ -325,8 +326,8 @@ public class Main_From extends javax.swing.JFrame {
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tplMainBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(tplMainBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();

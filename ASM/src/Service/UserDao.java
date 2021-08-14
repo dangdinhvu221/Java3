@@ -16,10 +16,11 @@ import java.sql.ResultSet;
  * @author dangd
  */
 public class UserDao {
+
     public USER checkLogIn(String Username, String Password) throws Exception {
         String sql = "select * from dbo.USERS "
                 + "WHERE [Username] = ? AND [Password] = ?";
-        try ( Connection conn = DatabaseHalper.openConnection(); 
+        try ( Connection conn = DatabaseHalper.openConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, Username);

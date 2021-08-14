@@ -40,6 +40,7 @@ public class StudenManagmentPanel extends javax.swing.JPanel {
         this.tblModel = (DefaultTableModel) this.tblShowData.getModel();
         this.titelTable();
         this.fillTable();
+        setRequestFocusEnabled(false);
 
     }
 

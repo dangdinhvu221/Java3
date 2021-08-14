@@ -83,6 +83,6 @@ AS
 		ROLLBACK TRANSACTION
 	END CATCH
 --- gọi
-EXEC dbo.Delete_SV_GR @codeStudent = 'ph14036'
+EXEC dbo.Delete_SV_GR @codeStudent = ''
 
 -----

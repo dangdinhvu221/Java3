@@ -25,7 +25,8 @@ public class STUDENTDAO {
 
     public List<STUDENT> FindByAll() {
         String sql = "SELECT * FROM STUDENT";
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
+        try ( Connection conn = DatabaseHalper.openConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
             ResultSet rs = pstmt.executeQuery();
             list.clear();
             while (rs.next()) {
@@ -41,7 +42,8 @@ public class STUDENTDAO {
 
     public STUDENT FindByID(String CodeId) {
         String sql = "SELECT * FROM STUDENT WHERE [CodeStudent] = ?";
-        try ( Connection conn = DatabaseHalper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
+        try ( Connection conn = DatabaseHalper.openConnection();  
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
             pstmt.setString(1, CodeId);
             ResultSet rs = pstmt.executeQuery();

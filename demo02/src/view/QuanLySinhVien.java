@@ -54,8 +54,10 @@ public class QuanLySinhVien extends javax.swing.JFrame {
 
     public void fillTable(String maMH) {
         tblModel.setRowCount(0);
-        String sql = " SELECT DIEM.Masv, HoTenSV, diem FROM dbo.SINHVIEN JOIN dbo.DIEM ON DIEM.Masv = SINHVIEN.MaSV WHERE [MaMH] = ?";
-        try ( Connection conn = DatabaseHelper.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = " SELECT DIEM.Masv, HoTenSV, diem FROM dbo.SINHVIEN "
+                + "JOIN dbo.DIEM ON DIEM.Masv = SINHVIEN.MaSV WHERE [MaMH] = ?";
+        try ( Connection conn = DatabaseHelper.openConnection(); 
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, maMH);
             try ( ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {

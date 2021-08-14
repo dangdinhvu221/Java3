@@ -212,7 +212,7 @@ public class LoginDialog extends javax.swing.JDialog {
             return;
         }
         try {
-            USER user = this.userDao.checkLogIn(this.txtUsername.getText(), String.valueOf(this.txtPassword.getPassword()));
+            USER user = this.userDao.checkLogIn(this.txtUsername.getText(), String.valueOf(this.txtPassword.getText()));
             if (user == null) {
                 MessageDialogHelper.showErrorDialog(this, "Sai tài khoản hoặc mật khẩu!!!", "Thông báo");
                 this.txtPassword.setBorder(new LineBorder(Color.RED));
